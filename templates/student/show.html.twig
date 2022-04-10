@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Student{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>ID</th>
+                <td>{{ student.id }}</td>
+            </tr>
+            <tr>
+                <th>Паспорт</th>
+                <td>{{ student.passport }}</td>
+            </tr>
+            <tr>
+                <th>ФИО</th>
+                <td>{{ student.name }}</td>
+            </tr>
+            <tr>
+                <th>Дата рождения</th>
+                <td>{{ student.birthday ? student.birthday|date('Y-m-d') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Название</th>
+            <th>Код</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for specialization in student.specializations %}
+            <tr>
+                <td>{{ specialization.id }}</td>
+                <td>{{ specialization.name }}</td>
+                <td>{{ specialization.code }}</td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">Не подал документы ни на одну специальность</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <a class="btn btn-primary" href="{{ path('app_student_spec_add',  {'id': student.id}) }}">Добавить специальность студенту</a>
+
+    <a class="btn btn-success" href="{{ path('app_university_show', {'id': student.university.id}) }}">Назад</a>
+
+    <a class="btn btn-info" href="{{ path('app_student_edit', {'id': student.id}) }}">Изменить</a>
+
+    {{ include('student/_delete_form.html.twig') }}
+{% endblock %}

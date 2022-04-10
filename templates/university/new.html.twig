@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New University{% endblock %}
+
+{% block body %}
+    <h1>Добавить университет</h1>
+
+    {{ include('university/_form.html.twig') }}
+
+    <a href="{{ path('app_university_index') }}">Назад</a>
+
+    {{ dump(data) }}
+{% endblock %}

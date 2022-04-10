@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Specialization{% endblock %}
+
+{% block body %}
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ specialization.id }}</td>
+            </tr>
+            <tr>
+                <th>Название</th>
+                <td>{{ specialization.name }}</td>
+            </tr>
+            <tr>
+                <th>Код</th>
+                <td>{{ specialization.code }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Номер паспорта</th>
+            <th>ФИО</th>
+            <th>Дата рождение</th>
+            <th>Результаты</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for student in specialization.students %}
+            <tr>
+                <td>{{ student.id }}</td>
+                <td>{{ student.passport }}</td>
+                <td>{{ student.name }}</td>
+                <td>{{ student.birthday ? student.birthday|date('Y-m-d') : '' }}</td>
+                <td>
+                    <ol>
+                    {% for result in student.studentResults %}
+                        <li> {{ result.subject.name }} -- {{ result.result }} </li>
+                    {% else %}
+                            Нет информации о сданных экзаменах
+                    {% endfor %}
+                    </ol>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">Нет абитуриентов</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a class="btn btn-primary" href="{{ path('app_university_show', {'id': specialization.university.id}) }}">Назад</a>
+
+    {{ include('specialization/_delete_form.html.twig') }}
+{% endblock %}

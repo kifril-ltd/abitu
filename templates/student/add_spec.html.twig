@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Добавить специальность{% endblock %}
+
+{% block body %}
+    <h1>{{ student.name }}</h1>
+
+    {{ include('student/_form.html.twig') }}
+
+    <a href="{{ path('app_student_show', {'id': student.id}) }}">Назад</a>
+{% endblock %}
